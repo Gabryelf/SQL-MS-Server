@@ -1,8 +1,3 @@
-USE academy;
-DROP PROCEDURE IF EXISTS fill_teachers;
-
-DELIMITER $$
-
 CREATE PROCEDURE fill_teachers(IN p_count INT)
 BEGIN
     DECLARE i INT DEFAULT 0;
@@ -25,6 +20,4 @@ BEGIN
         );
         SET i = i + 1;
     END WHILE;
-END$$
-
-DELIMITER ;
+END
