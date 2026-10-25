@@ -10,3 +10,10 @@ BEGIN
     END IF;
 END
 
+--Заполнение существующей таблицы по порядку
+SET @start = '2026-01-01';
+SET @row = -1;
+
+UPDATE shedules
+SET date_day = DATE_ADD(@start, INTERVAL (@row := @row + 1) DAY)
+ORDER BY id;
