@@ -52,6 +52,7 @@ create table lessons(
     subject_id int not null,
     stud_group_id int not null,
     teacher_id int not null,
+	class_id int not null,
     date_at datetime,
     
     foreign key (subject_id) 
@@ -59,7 +60,9 @@ create table lessons(
     foreign key (stud_group_id) 
     references student_groups(id),
     foreign key (teacher_id) 
-    references teachers(id)
+    references teachers(id),
+	foreign key (class_id) 
+    references classes(id)
 );
 
 create table student_grades(
@@ -82,33 +85,12 @@ create table student_grades(
     
 );
 
-create table shedules(
-	id int primary key auto_increment,
+create table schedule_entries (
+    id int primary key auto_increment,
     date_day date not null,
-    lesson_1_id int,
-    lesson_2_id int,
-    lesson_3_id int,
-    lesson_4_id int,
-    lesson_5_id int,
-    lesson_6_id int,
-    lesson_7_id int,
-    lesson_8_id int,
+    lesson_number tinyint not null,
+    lesson_id int not null,
     created_at date,
-    
-    foreign key (lesson_1_id) 
-    references lessons(id),
-    foreign key (lesson_2_id) 
-    references lessons(id),
-    foreign key (lesson_3_id) 
-    references lessons(id),
-    foreign key (lesson_4_id) 
-    references lessons(id),
-    foreign key (lesson_5_id) 
-    references lessons(id),
-    foreign key (lesson_6_id) 
-    references lessons(id),
-    foreign key (lesson_7_id) 
-    references lessons(id),
-    foreign key (lesson_8_id) 
-    references lessons(id),
+    unique key uq_day_slot (date_day, lesson_number),
+    foreign key (lesson_id) references lessons(id)
 );
